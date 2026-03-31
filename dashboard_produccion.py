@@ -21,6 +21,14 @@ st.set_page_config(
     initial_sidebar_state="expanded"
 )
 
+# ── Helpers ─────────────────────────────────────────────────
+def hex_to_rgba(hex_color, opacity=0.15):
+    """Convierte color hex a rgba string compatible con Plotly Python."""
+    r = int(hex_color[1:3], 16)
+    g = int(hex_color[3:5], 16)
+    b = int(hex_color[5:7], 16)
+    return f"rgba({r},{g},{b},{opacity})"
+
 # ── Estilos custom ───────────────────────────────────────────
 st.markdown("""
 <style>
@@ -200,7 +208,7 @@ with col3:
             x=d["fecha"], y=d["cum_oil"],
             name=pozo, mode="lines",
             fill="tozeroy",
-            fillcolor=colores[pozo] + "22",
+            fillcolor=hex_to_rgba(colores[pozo], 0.15),
             line=dict(color=colores[pozo], width=2),
             hovertemplate=f"<b>{pozo}</b><br>%{{x|%b %y}}<br>%{{y:,.0f}} m³<extra></extra>"
         ))
